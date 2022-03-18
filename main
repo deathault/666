@@ -1,0 +1,24 @@
+
+Первым делом необходимо изменить url в репозиториях
+
+sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
+sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+Дальнейшие изменения рекомендую делать "внутри" tmux. Если tmux не установлен, то установить необходимый пакет
+
+dnf install tmux
+tmux
+Устанавливаем репозитории для Centos Stream
+
+dnf install centos-release-stream
+Переключаемся на Stream репозиторий
+
+dnf swap centos-{linux,stream}-repos
+Обновляем установленные пакеты в соответствии с новым репозиторием.
+
+dnf distro-sync
+Перезагружаем ОС
+
+reboot
+Если на ВМ используется veeam необходимо внести изменения в файл /etc/lvm/lvm.conf
+
+units = "h"
